@@ -1,0 +1,13 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/*
+ * Public API Surface of facephi-selphid
+ */
+export { FacePhiSelphIdComponent } from "./lib/components/facephi-selphid/facephi-selphid.component";
+export { FPhiSelphIdConfiguration, FPhiSelphIdDocumentDimensions } from "./lib/models/facephi-selphid-configuration";
+export { FPhiSelphIdConstants } from "./lib/models/facephi-selphid-constants";
+export { FPhiSelphIdWidgetService } from "./lib/services/fphi-selphid-widget.service";
+export { FacePhiSelphIdModule } from "./lib/facephi-selphid.module";
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL2ZhY2VwaGktc2VscGhpZC8iLCJzb3VyY2VzIjpbInB1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7OztBQUdBLHdDQUFjLDREQUE0RCxDQUFDO0FBQzNFLHdFQUFjLDRDQUE0QyxDQUFDO0FBQzNELHFDQUFjLHdDQUF3QyxDQUFDO0FBQ3ZELHlDQUFjLDRDQUE0QyxDQUFDO0FBQzNELHFDQUFjLDhCQUE4QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBmYWNlcGhpLXNlbHBoaWRcbiAqL1xuZXhwb3J0ICogZnJvbSBcIi4vbGliL2NvbXBvbmVudHMvZmFjZXBoaS1zZWxwaGlkL2ZhY2VwaGktc2VscGhpZC5jb21wb25lbnRcIjtcbmV4cG9ydCAqIGZyb20gXCIuL2xpYi9tb2RlbHMvZmFjZXBoaS1zZWxwaGlkLWNvbmZpZ3VyYXRpb25cIjtcbmV4cG9ydCAqIGZyb20gXCIuL2xpYi9tb2RlbHMvZmFjZXBoaS1zZWxwaGlkLWNvbnN0YW50c1wiO1xuZXhwb3J0ICogZnJvbSBcIi4vbGliL3NlcnZpY2VzL2ZwaGktc2VscGhpZC13aWRnZXQuc2VydmljZVwiO1xuZXhwb3J0ICogZnJvbSBcIi4vbGliL2ZhY2VwaGktc2VscGhpZC5tb2R1bGVcIjtcbiJdfQ==
