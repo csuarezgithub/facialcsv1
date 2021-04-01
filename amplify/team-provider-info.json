@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-adxfacephiproto-dev-145604-authRole",
+      "UnauthRoleArn": "arn:aws:iam::949682836344:role/amplify-adxfacephiproto-dev-145604-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::949682836344:role/amplify-adxfacephiproto-dev-145604-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-adxfacephiproto-dev-145604-deployment",
+      "UnauthRoleName": "amplify-adxfacephiproto-dev-145604-unauthRole",
+      "StackName": "amplify-adxfacephiproto-dev-145604",
+      "StackId": "arn:aws:cloudformation:us-east-1:949682836344:stack/amplify-adxfacephiproto-dev-145604/e3875980-81c9-11eb-ac17-128e31f6ab25",
+      "AmplifyAppId": "d1pxz3ikfxzii3"
+    },
+    "categories": {
+      "auth": {
+        "facephiadx": {}
+      }
+    }
+  }
+}

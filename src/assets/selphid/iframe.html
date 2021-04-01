@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <title></title>
+    </head>
+    <body style="margin-left:auto; margin-right:auto; background-color:lightGray;">
+
+        <script type="text/javascript" src="FPhi.Widget.wasm.js"></script>
+
+        <p>Prueba webassembly widget</p>
+        <button id="button1">Start capture</button>
+        <button id="buttonStop">Stop capture</button>
+        <select id="select1">
+            <option value="Front">Front</option>
+            <option value="Back">Back</option>
+            <option value="Full" selected>Full</option>
+        </select>
+        Debug <input type="checkbox" id="debugButton" />
+        Front camera <input type="checkbox" id="fcButton"/>
+        Preview <input type="checkbox" id="previewButton" checked/>
+        Camera <select id="cameraSelector">
+        </select>
+        <button id="button2">Widget in adaptative mode</button>
+        <button id="button3">Check Widget Auth</button>
+        <div style="display:inline-block; width:100%; border:1px solid black;">
+            <div id="facePhiDiv" style="border:1px solid magenta; text-align: center; position:relative; display:inline-block;margin-left:auto;margin-right:auto;  width:700px; height:500px;"></div>
+            <div id="facePhiDivTest" style=" text-align: left; position:relative; display:inline-block;margin-left:auto;margin-right:auto; overflow-y:scroll; height:450px;"></div>
+        </div>
+        <script>
+            
+            var oldLog = console.log;
+            console.log = function (message) {
+
+                var testWrapper = document.getElementById("facePhiDivTest");
+                testWrapper.innerHTML = testWrapper.innerHTML + "<span>"+message+"</span><br>";
+                testWrapper.scrollTop = testWrapper.scrollHeight;
+                oldLog.apply(console, arguments);
+            };
+        
+            var uc = null;
+            
+            async function populateCameras(selectId) {
+                selectId.options.length=0;
+                let opt = document.createElement('option');
+                opt.appendChild( document.createTextNode('Auto') );
+                selectId.appendChild(opt);
+                let cameras = await navigator.mediaDevices.enumerateDevices();
+                console.log(cameras);
+                for (let a=0; a<cameras.length; a++) {
+                    if (cameras[a].kind=="videoinput") {
+                        let opt = document.createElement('option');
+                        if (cameras[a].deviceId == '')
+                            opt.appendChild( document.createTextNode('Camera with deviceId not available') );
+                        else
+                            opt.appendChild( document.createTextNode(cameras[a].label) );
+                        opt.value = cameras[a].deviceId;
+                        selectId.appendChild(opt);
+                    }
+                }
+            }
+            populateCameras(document.getElementById('cameraSelector'));
+
+            document.getElementById('button3').addEventListener('click', async function () {
+                let value = await FPhi.SelphID.Widget.checkAuth();
+                console.log("Widget autorizado: "+value);
+            });
+                                                                
+            document.getElementById('button1').addEventListener('click', function () {
+                                   
+                var cm = new FPhi.SelphID.ConfigurationManager();
+                cm.setContainer(document.getElementById("facePhiDiv"));
+                cm.setOnExtractionFinish(onExtractionFinish);
+                cm.setOnUserCancel(onUserCancel);
+                cm.setOnExceptionCaptured(onExceptionCaptured);
+                cm.setOnExtractionTimeout(onExtractionTimeout);
+                cm.setOnModuleLoaded(onModuleLoaded);
+                cm.setLanguage("es");
+                cm.setPreview(document.getElementById("previewButton").checked);
+                cm.setQualityThreshold(60); // default 60
+                //cm.setCaptureSensibility(FPhi.SelphID.CaptureSensibility.High);
+                cm.setInitialTip(true);
+                //cm.setEdgeOffset(15); // default 10
+                cm.setDocumentDimensions({x:0,y:0,width:125,height:88});
+                
+
+                var cameraId = document.getElementById("cameraSelector").value;
+                if (cameraId!="") {
+                    cm.setCameraId(cameraId);
+                }
+
+                // set document physical dimensions. Default value = spanish id dimensions
+                //cm.setDocumentDimensions({x:0, y:0, width:85.60, height: 53.98});
+
+                var mode = document.getElementById("select1").value;
+                if (mode=="Front") cm.setMode(FPhi.SelphID.Mode.Front);
+                else if (mode=="Back") cm.setMode(FPhi.SelphID.Mode.Back);
+                else cm.setMode(FPhi.SelphID.Mode.Full);
+
+                //cm.setCaptureTimeout(3);
+                cm.setCaptureRetries(2);
+                                                                
+                //cm.setImageFormat("image/jpeg");
+                //cm.setImageQuality(0.5);
+
+                uc = new FPhi.SelphID.Widget(cm);
+                uc.debug = document.getElementById("debugButton").checked;
+                //uc.cameraFrontSide = document.getElementById("fcButton").checked;
+                uc.Start();
+                
+                //populateCameras(document.getElementById('cameraSelector'));
+
+            });
+
+            document.getElementById('buttonStop').addEventListener('click', function () {
+                                                                
+                if (uc!=null) {
+                    uc.Stop();
+                }
+            });
+
+            document.getElementById('button2').addEventListener('click', function () {
+
+                window.location.href = "test_adapt.html";
+                //populateCameras(document.getElementById('cameraSelector'));
+
+            });
+
+            document.getElementById("debugButton").addEventListener("click",function () {
+                if (uc != null)
+                    uc.debug = document.getElementById("debugButton").checked;
+            });
+
+            function onExtractionFinish(result) {
+                console.log("onExtractionFinish");
+                console.log(result);
+            }
+
+            function onUserCancel() {
+                console.log("onUserCancel");
+            }
+
+            function onExceptionCaptured() {
+                console.log("onExceptionCaptured");
+            }
+
+            function onExtractionTimeout(result) {
+                console.log("onExtractionTimeout");
+                console.log(result);
+            }
+        
+            function onModuleLoaded() {
+                console.log("onModuleLoaded");
+            }
+        
+        </script>
+    </body>
+</html>

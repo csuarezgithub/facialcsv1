@@ -1,0 +1,79 @@
+<!--<p>
+  adxselphi-id works!
+</p>-->
+
+<div class="container p-3">
+  <div class="row h-100">
+      <!-- Widget web SelphID -->
+      <div class="col-12 col-md-9" style="min-height: 350px;">
+          <facephi-selphid *ngIf="isWidgetCaptureStarted"
+                           widgetLibPath="assets/selphid"
+                           class="h-100"
+                           containerCssClass="bg-dark"
+
+                           language="es"
+                           [documentDimensions]="{ x: 0, y: 0, width: 85.60, height: 53.98 }"
+
+                           [captureMode]="widgetCaptureMode"
+                           [previewCapture]="widgetPreviewCapture"
+                           [forceLandscape]="widgetForceLandscape"
+                           [initialTip]="widgetInitialTip"
+                           
+                           [cameraWidth]="widgetCameraWidth"
+                           [cameraHeight]="widgetCameraHeight"
+                           
+                           [captureSensibility]="widgetCaptureSensibility"
+
+                           [debugMode]="widgetDebugMode"
+
+                           (onModuleLoaded)="onModuleLoaded($event)"
+                           (onExtractionFinished)="onExtractionFinished($event)"
+                           (onUserCancelled)="onUserCancelled()"
+                           (onExceptionCaptured)="onExceptionCaptured($event)"
+                           (onExtractionTimeout)="onExtractionTimeout()"
+                           (onTrackStatus)="onTrackStatus($event)">
+          </facephi-selphid>
+      </div>
+
+      <!-- Elementos de configuración del widget -->
+      <div class="col-12 col-md-3 mt-3 mt-md-0">
+          <div class="form-group">
+              <label for="captureMode">Capture mode</label>
+              <select id="captureMode" class="form-control" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetCaptureMode">
+                  <option *ngFor="let mode of fPhiSelphIdConstants.CaptureMode | keyvalue" [value]="mode.value">{{ mode.key }}</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="widgetCameraResolution">Camera resolution</label>
+              <select id="widgetCameraResolution" class="form-control" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetCameraResolution">
+                  <option *ngFor="let res of objectEntriesFunc(FPhiCameraResolutions)" [value]="res[0]">{{ res[1].title }}</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="captureSensibility">Capture sensibility</label>
+              <select id="captureSensibility" class="form-control" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetCaptureSensibility">
+                  <option *ngFor="let sensibility of fPhiSelphIdConstants.CaptureSensibility | keyvalue" [value]="sensibility.value">{{ sensibility.key }}</option>
+              </select>
+          </div>
+          <div class="form-group form-check m-0">
+              <input type="checkbox" id="previewCapture" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetPreviewCapture" />
+              <label for="previewCapture" class="form-check-label">Preview capture</label>
+          </div>
+          <div class="form-group form-check m-0">
+              <input type="checkbox" id="forceLandscape" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetForceLandscape" />
+              <label for="forceLandscape" class="form-check-label">Force landscape</label>
+          </div>
+          <div class="form-group form-check m-0">
+              <input type="checkbox" id="initialTip" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetInitialTip" />
+              <label for="initialTip" class="form-check-label">Initial tip</label>
+          </div>
+          <!--<div class="form-group form-check">
+              <input type="checkbox" id="debugMode" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetDebugMode" />
+              <label for="debugMode" class="form-check-label">Debug</label>
+          </div>-->
+
+          <button type="button" id="btnStartCapture" class="btn btn-primary btn-block" (click)="onStartCapture()" [disabled]="isWidgetCaptureStarted ? 'disabled' : null">Start capture</button>
+          <button type="button" id="btnStopCapture" class="btn btn-danger btn-block" (click)="onStopCapture()" [disabled]="!isWidgetCaptureStarted ? 'disabled' : null">Stop capture</button>
+      </div>
+  </div>
+</div>

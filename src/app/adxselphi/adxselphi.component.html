@@ -1,0 +1,97 @@
+<!--<p>
+  adxselphi works!
+</p>-->
+<div class="container p-3">
+  <div class="row h-100">
+      <!-- Widget web SelphID -->
+      <div class="col-12 col-md-9" style="min-height: 550px;">
+          <facephi-selphi *ngIf="isWidgetCaptureStarted"
+                           widgetLibPath="assets/selphi"
+                           class="h-100"
+                           
+                           language="es"
+                           [extractionMode]="widgetExtractionMode"
+                           [livenessMode]="widgetLivenessMode"
+                           
+                           [cameraWidth]="widgetCameraWidth"
+                           [cameraHeight]="widgetCameraHeight"
+                           [cameraType]="widgetCameraType"
+
+                           [interactible]="widgetInteractible"
+                           [tutorial]="widgetTutorial"
+                           [stabilizationStage]="widgetStabilizationStage"
+                           
+                           [logImages]="true"
+                           [cropFactor]="1.7"
+
+                           [videoRecord]="widgetVideoRecord"
+                           [videoRecordType]="FPhiSelphiConstants.RecorderType.Remote"
+                           [videoRecordScale]="widgetCameraWidth < 1280 ? 1 : 0.5"
+
+                           [debugMode]="widgetDebugMode"
+
+                           (onModuleLoaded)="onModuleLoaded($event)"
+                           (onStabilizing)="onStabilizing($event)"
+                           (onExtractionFinish)="onExtractionFinish($event)"
+                           (onUserCancel)="onUserCancel()"
+                           (onExceptionCaptured)="onExceptionCaptured($event)"
+                           (onLivenessError)="onLivenessError($event)"
+                           (onLivenessErrorButtonClick)="onLivenessErrorButtonClick()"
+                           (onExtractionTimeout)="onExtractionTimeout($event)"
+                           (onTimeoutErrorButtonClick)="onTimeoutErrorButtonClick()"
+                           (onTrackStatus)="onTrackStatus($event)">
+          </facephi-selphi>
+      </div>
+
+      <!-- Elementos de configuraciÃ³n del widget -->
+      <div class="col-12 col-md-3 mt-3 mt-md-0">
+          <div class="form-group">
+              <label for="widgetExtractionMode">Extraction mode</label>
+              <select id="widgetExtractionMode" class="form-control" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetExtractionMode">
+                  <option *ngFor="let mode of objectEntriesFunc(FPhiSelphiConstants.ExtractionMode)" [value]="mode[1]">{{ mode[0] }}</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="widgetLivenessMode">Liveness mode</label>
+              <select id="widgetLivenessMode" class="form-control" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetLivenessMode">
+                  <option *ngFor="let mode of objectEntriesFunc(FPhiSelphiConstants.LivenessMode)" [value]="mode[1]">{{ mode[0] }}</option>
+              </select>
+          </div>
+          <div class="form-group form-check m-0">
+              <input type="checkbox" id="widgetInteractible" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetInteractible" />
+              <label for="widgetInteractible" class="form-check-label">Interactible</label>
+          </div>
+          <div class="form-group form-check m-0">
+              <input type="checkbox" id="widgetTutorial" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetTutorial" />
+              <label for="widgetTutorial" class="form-check-label">Tutorial</label>
+          </div>
+          <div class="form-group form-check m-0">
+              <input type="checkbox" id="widgetStabilizationStage" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetStabilizationStage" />
+              <label for="widgetStabilizationStage" class="form-check-label">Stabilization stage</label>
+          </div>
+          <div class="form-group form-check m-0">
+              <input type="checkbox" id="widgetVideoRecord" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetVideoRecord" />
+              <label for="widgetVideoRecord" class="form-check-label">Record video session</label>
+          </div>
+          <div class="form-group form-check">
+              <input type="checkbox" id="widgetDebugMode" class="form-check-input" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetDebugMode" />
+              <label for="widgetDebugMode" class="form-check-label">Debug</label>
+          </div>
+          <div class="form-group">
+              <label for="widgetCameraResolution">Camera resolution</label>
+              <select id="widgetCameraResolution" class="form-control" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetCameraResolution">
+                  <option *ngFor="let res of objectEntriesFunc(FPhiCameraResolutions)" [value]="res[0]">{{ res[1].title }}</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="widgetCameraType">Camera type</label>
+              <select id="widgetCameraType" class="form-control" [disabled]="isWidgetCaptureStarted ? 'disabled' : null" [(ngModel)]="widgetCameraType">
+                  <option *ngFor="let mode of objectEntriesFunc(FPhiSelphiConstants.CameraType)" [value]="mode[1]">{{ mode[0] }}</option>
+              </select>
+          </div>
+
+          <button type="button" id="btnStartCapture" class="btn btn-primary btn-block" (click)="onStartCapture()" [disabled]="isWidgetCaptureStarted ? 'disabled' : null">Start capture</button>
+          <button type="button" id="btnStopCapture" class="btn btn-danger btn-block" (click)="onStopCapture()" [disabled]="!isWidgetCaptureStarted ? 'disabled' : null">Stop capture</button>
+      </div>
+  </div>
+</div>
